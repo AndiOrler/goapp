@@ -15,4 +15,6 @@ func main() {
 
 	api.Api(e)
 
+	e.Logger.Fatal(e.Start(":3000"))
+
 }

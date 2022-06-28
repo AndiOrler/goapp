@@ -14,7 +14,7 @@ func Api(e *echo.Echo) *echo.Echo {
 	e.DELETE("/user/:id", handler.DeleteUser)
 	e.GET("/users", handler.GetAllUsers)
 
-	e.Logger.Fatal(e.Start(":3000"))
+	// e.Logger.Fatal(e.Start(":3000"))
 
 	return e
 
