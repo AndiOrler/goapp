@@ -10,18 +10,18 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-var (
-	// users = map[int]*models.User{}
-	seq = 1
-)
-
 func Greeting(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello my friend! :)")
 }
 
 func (h handler) CreateUser(c echo.Context) error {
+
+	newestUser := &models.User{}
+
+	h.DB.Last(&newestUser)
+
 	u := &models.User{
-		ID: seq,
+		ID: newestUser.ID + 1,
 	}
 
 	if err := c.Bind(u); err != nil {
@@ -31,9 +31,6 @@ func (h handler) CreateUser(c echo.Context) error {
 	if result := h.DB.Create(&u); result.Error != nil {
 		fmt.Println(result.Error)
 	}
-
-	// users[u.ID] = u
-	seq++
 
 	return c.JSON(http.StatusCreated, u)
 }
